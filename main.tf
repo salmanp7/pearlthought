@@ -2,18 +2,18 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-resource "aws_vpc" "pearlthoughts" {
+resource "aws_vpc" "pearlthoughts-vpc" {
   cidr_block = "172.31.0.0/16"
 }
 
 resource "aws_subnet" "pearl" {
-  vpc_id            = aws_vpc.pearlthoughts.id
+  vpc_id            = aws_vpc.pearlthoughts-vpc.id
   cidr_block        = "172.31.32.0/20"
   availability_zone = "ap-south-1a"
 }
 
 resource "aws_security_group" "pearl" {
-  vpc_id = aws_vpc.pearlthoughts.id
+  vpc_id = aws_vpc.pearlthoughts-vpc.id
 
   ingress {
     from_port   = 3000
@@ -38,8 +38,8 @@ resource "aws_ecs_task_definition" "pearlthoughts" {
   family                   = "hello-world-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"  
-  memory                   = "512"  
+  cpu                      = "256"
+  memory                   = "512"
 
   container_definitions = jsonencode([
     {
