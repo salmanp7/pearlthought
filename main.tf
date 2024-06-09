@@ -31,10 +31,10 @@ resource "aws_security_group" "pearl" {
 }
 
 resource "aws_ecs_cluster" "cluster" {
-  name = "pearlthoughts"
+  name = "pearlthoughts-cluster"
 }
 
-resource "aws_ecs_task_definition" "pearlthoughts" {
+resource "aws_ecs_task_definition" "hello-world-task" {
   family                   = "hello-world-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
