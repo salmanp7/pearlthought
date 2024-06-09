@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "hello-world-task" {
 resource "aws_ecs_service" "service" {
   name            = "hello-world-service"
   cluster         = aws_ecs_cluster.cluster.id
-  task_definition = aws_ecs_task_definition.pearlthoughts.arn
+  task_definition = aws_ecs_task_definition.pearlthoughts-cluster.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
