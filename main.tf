@@ -7,13 +7,13 @@ resource "aws_vpc" "pearlthoughts" {
 }
 
 resource "aws_subnet" "pearl" {
-  vpc_id            = vpc-0cdce67bc93ef0672
+  vpc_id            = aws_vpc.pearlthoughts.id
   cidr_block        = "172.31.32.0/20"
-  availability_zone = "ap-south-1"
+  availability_zone = "ap-south-1a"
 }
 
 resource "aws_security_group" "pearl" {
-  vpc_id = vpc-0cdce67bc93ef0672
+  vpc_id = aws_vpc.pearlthoughts.id
 
   ingress {
     from_port   = 3000
@@ -35,7 +35,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_task_definition" "pearlthoughts" {
-  family                   = "hello-world-service"
+  family                   = "hello-world-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1"
@@ -59,15 +59,14 @@ resource "aws_ecs_task_definition" "pearlthoughts" {
 
 resource "aws_ecs_service" "service" {
   name            = "hello-world-service"
-  cluster         = "arn:aws:ecs:ap-south-1:533267382038:cluster/pearlthoughts"
-  task_definition = "arn:aws:ecs:ap-south-1:533267382038:task-definition/pearlthoughts:1"
+  cluster         = aws_ecs_cluster.cluster.id
+  task_definition = aws_ecs_task_definition.pearlthoughts.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = subnet-08cc72eb216a15189
-    security_groups  = sg-0d63240904eda7c79
+    subnets          = [aws_subnet.pearl.id]
+    security_groups  = [aws_security_group.pearl.id]
     assign_public_ip = true
   }
 }
-
