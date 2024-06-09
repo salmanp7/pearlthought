@@ -30,8 +30,8 @@ resource "aws_security_group" "pearl" {
   }
 }
 
-resource "aws_ecs_cluster" "pearlthoughts-cluster" {
-  name = "pearlthoughts-cluster"
+resource "aws_ecs_cluster" "pearlthoughts-clusters" {
+  name = "pearlthoughts-clusters"
 }
 
 resource "aws_ecs_task_definition" "hello-world-task" {
@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "hello-world-task" {
 
 resource "aws_ecs_service" "service" {
   name            = "hello-world-service"
-  cluster         = aws_ecs_cluster.pearlthoughts-cluster.id
+  cluster         = aws_ecs_cluster.pearlthoughts-clusters.id
   task_definition = aws_ecs_task_definition.hello-world-task.arn 
   desired_count   = 1
   launch_type     = "FARGATE"
