@@ -30,7 +30,7 @@ resource "aws_security_group" "pearl" {
   }
 }
 
-resource "aws_ecs_cluster" "cluster" {
+resource "aws_ecs_cluster" "pearlthoughts-cluster" {
   name = "pearlthoughts-cluster"
 }
 
