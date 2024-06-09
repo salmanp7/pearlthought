@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "task" {
 resource "aws_ecs_service" "service" {
   name            = "hello-world-service"
   cluster         = "arn:aws:ecs:ap-south-1:533267382038:cluster/pearlthoughts"
-  task_definition = arn:aws:ecs:ap-south-1:533267382038:task-definition/pearlthoughts:1
+  task_definition = "arn:aws:ecs:ap-south-1:533267382038:task-definition/pearlthoughts:1"
   desired_count   = 1
   launch_type     = "FARGATE"
 
