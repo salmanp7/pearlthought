@@ -2,17 +2,17 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "pearlthoughts" {
   cidr_block = "172.31.0.0/16"
 }
 
-resource "aws_subnet" "subnet" {
+resource "aws_subnet" "pearl" {
   vpc_id            = vpc-0cdce67bc93ef0672
   cidr_block        = "172.31.32.0/20"
   availability_zone = "ap-south-1"
 }
 
-resource "aws_security_group" "sg" {
+resource "aws_security_group" "pearl" {
   vpc_id = vpc-0cdce67bc93ef0672
 
   ingress {
@@ -34,7 +34,7 @@ resource "aws_ecs_cluster" "cluster" {
   name = "pearlthoughts"
 }
 
-resource "aws_ecs_task_definition" "task" {
+resource "aws_ecs_task_definition" "pearlthoughts" {
   family                   = "hello-world-service"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
