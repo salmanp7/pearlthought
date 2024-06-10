@@ -60,7 +60,7 @@ resource "aws_ecs_task_definition" "hello-world-task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
   memory                   = "3072"
-  execution_role_arn       = "arn:aws:iam::<account-id>:role/ecsTaskExecutionRole" # Replace <account-id> with your AWS account ID
+  execution_role_arn       = "arn:aws:iam::533267382038:role/ecsTaskExecutionRole" 
 
   container_definitions = jsonencode([
     {
